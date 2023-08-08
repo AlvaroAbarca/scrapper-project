@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<title>Bajo de Precio | Monitorea tus Productos y recibe ofertas!</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Bajo de Precio">
+	<meta name="keywords" content="music, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!-- Favicon -->
+	<link href="{% static 'landing/img/favicon.ico' %}" rel="shortcut icon"/>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+ 
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="{% static 'landing/css/bootstrap.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'landing/css/font-awesome.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'landing/css/owl.carousel.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'landing/css/slicknav.min.css' %}"/>
+
+	<!-- Main Stylesheets -->
+	<link rel="stylesheet" href="{% static 'landing/css/style.css' %}"/>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-163836875-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-163836875-1');
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header section -->
+	<header class="header-section clearfix">
+		<a href="{% url 'index_landing' %}" class="site-logo">
+			<img style="width:300px; height: auto" src="{% static 'landing/img/logo.png' %}" alt="">
+		</a>
+		<div class="header-right">
+		</div>
+		<ul class="main-menu">
+			<li><a href="{% url 'index_landing' %}">Inicio</a></li>
+			<li><a href="#quees">¿Qué es Bajo De Precio?</a></li>
+			<li><a href="{% url 'search_product' %}">Consultar un Producto</a></li>
+			<li><a href="{% url 'updates_view' %}">Notas de Actualización</a></li>
+			{% if request.user.username %}
+			<li><a href="{% url 'index' %}"><i class="fa fa-user mr-2"></i> Mi Cuenta</a></li>
+			{% endif %}
+<!-- 			<li><a href="blog.html">Buscar un Producto</a></li>
+ --><!-- 			<li><a href="contact.html">Contacto</a></li>
+ -->		</ul>
+	</header>
+	<!-- Header section end -->
+
+	<!-- Hero section -->
+	<section class="hero-section">
+		<div class="hero-slider owl-carousel">
+			<div class="hs-item">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="hs-text">
+								<h2><span>Entérate</span> de las ofertas!</h2>
+								<p>Con Bajo De Precio puedes crear tu propia wishlist de productos y nosotros nos encargaremos de avisarte cuando estos bajen de precio! Pruébalo es Gratis!</p>
+								{% if request.user.username %}
+									<a href="{% url 'index' %}" class="site-btn btn-block">Ver mis productos</a>
+								{% else %}
+								<a href="{% url 'register' %}" class="site-btn">Crea tu Cuenta</a>
+								<a href="{% url 'login' %}" class="site-btn sb-c2">Iniciar Sesión</a>
+								{% endif %}
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="hr-img">
+								<img src="{% static 'landing/img/hero-bg.png' %}" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Hero section end -->
+
+	<!-- Intro section -->
+	<section id="quees" class="intro-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="section-title">
+						<h2>¿Qué es Bajo De Precio?</h2>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<p>Con Bajo De Precio podrás crear tu propia Wishlist de productos y nosotros nos encargaremos de avisarte cuando estos bajen de precio. Además cuentas con un historial de precios para cada producto que te ayudara a tomar una mejor decisión de tu compra!</p>
+					<a href="{% url 'register' %}" class="site-btn">Pruébalo es Gratis!</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Intro section end -->
+
+	<!-- How section -->
+	<section class="how-section spad set-bg" data-setbg="{% static 'img/how-to-bg.jpg' %}">
+		<div class="container text-white">
+			<div class="section-title">
+				<h2>¿Cómo Funciona?</h2>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="how-item">
+						<h4>1.- Crea una cuenta</h4>
+						<p>Crea una cuenta utilizando tu correo electrónico, con ella podrás comenzar a registrar productos en tu wishlist.</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="how-item">
+						<h4>2.- Agrega un Producto</h4>
+						<p>Para agregar un producto solo basta con copiar el link del producto, agregarlo en nuestro formulario y darle a "Agregar Producto".</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="how-item">
+						<h4>3.- Espera las Ofertas</h4>
+						<p>Nosotros nos encargaremos de monitorear este producto por ti y te avisaremos cuando tenga ofertas!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- How section end -->
+
+	<!-- Concept section -->
+	<section class="concept-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="section-title">
+						<h2>Tiendas Compatibles</h2>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<p>Estamos trabajando para lograr implementar la mayor cantidad de tiendas posibles, pero esto puede tomarnos algo de tiempo, por el momento estas son las tiendas compatibles con BajoDePrecio. Si te gustaría que agregaramos una tienda en especifico, escribenos por el formulario de contacto!</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-sm-6">
+					<div class="concept-item">
+						<img src="{% static 'landing/img/concept/4.jpg' %}" alt="">
+						<h5><a href="https://www.falabella.com/" target="_blank">Falabella</a></h5>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Concept section end -->
+	<!-- Footer section -->
+	<footer class="footer-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-6 col-lg-7 order-lg-2">
+					<div class="row">
+						<div class="col-sm-4">
+						</div>
+						<div class="col-sm-4">
+						</div>
+						<div class="col-sm-4">
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-6 col-lg-5 order-lg-1">
+					<img style="width: 50%" src="{% static 'landing/img/logo.png' %}" alt="">
+¿				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Footer section end -->
+	
+	<!--====== Javascripts & Jquery ======-->
+	<script src="{% static 'landing/js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'landing/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'landing/js/jquery.slicknav.min.js' %}"></script>
+	<script src="{% static 'landing/js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'landing/js/mixitup.min.js' %}"></script>
+	<script src="{% static 'landing/js/main.js' %}"></script>
+
+	</body>
+</html>

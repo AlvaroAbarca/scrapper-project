@@ -1,0 +1,77 @@
+version: '3'
+
+services:
+  web:
+    image: scrapper:latest
+    command: gunicorn --bind 0.0.0.0:8000 main.wsgi
+    volumes:
+      - .:/code
+    expose:
+      - 8000
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - db
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'bajodeprecio_db'
+      MYSQL_USER: 'bajodeprecio'
+      MYSQL_PASSWORD: 'bajodeprecio1234'
+      MYSQL_ROOT_PASSWORD: '1234'
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./static:/var/www/staticfiles
+    depends_on:
+      - web
+
+  # frontend:
+  #   restart: unless-stopped
+  #   image: staticfloat/nginx-certbot
+  #   ports:
+  #       - 80:80/tcp
+  #       - 443:443/tcp
+  #   environment:
+  #       CERTBOT_EMAIL: marcelocavieresd@gmail.com
+  #       # variable names are space-separated
+  #       ENVSUBST_VARS: FQDN
+  #       FQDN: bajodeprecio.cl
+  #   volumes:
+  #     - ./nginx/nginx1.conf:/etc/nginx/user.conf.d:ro
+  #     - letsencrypt:/etc/letsencrypt
+  #     - ./static:/var/www/staticfiles
+  #   depends_on:
+  #     - web
+
+
+  redis:
+    image: redis
+
+  worker:
+    image: scrapper:latest
+    command: celery -A main worker -l INFO
+    volumes:
+      - .:/code
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+  beat:
+    image: scrapper:latest
+    command: celery -A main beat -l INFO
+    volumes:
+      - .:/code
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+volumes:
+    letsencrypt:

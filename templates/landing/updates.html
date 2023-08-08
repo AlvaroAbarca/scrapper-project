@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<title>Notas de Actualizacion | Bajodeprecio.cl</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Bajo de Precio">
+	<meta name="keywords" content="music, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!-- Favicon -->
+	<link href="{% static 'landing/img/favicon.ico' %}" rel="shortcut icon"/>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+ 
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="{% static 'landing/css/bootstrap.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'landing/css/font-awesome.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'landing/css/owl.carousel.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'landing/css/slicknav.min.css' %}"/>
+
+	<!-- Main Stylesheets -->
+	<link rel="stylesheet" href="{% static 'landing/css/style.css' %}"/>
+
+
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header section -->
+	<header class="header-section clearfix">
+		<a href="{% url 'index_landing' %}" class="site-logo">
+			<img style="width:300px; height: auto" src="{% static 'landing/img/logo.png' %}" alt="">
+		</a>
+		<div class="header-right">
+		</div>
+		<ul class="main-menu">
+			<li><a href="{% url 'index_landing' %}">Inicio</a></li>
+			<li><a href="#quees">¿Qué es Bajo De Precio?</a></li>
+			<li><a href="{% url 'search_product' %}">Consultar un Producto</a></li>
+			<li><a href="{% url 'updates_view' %}">Notas de Actualización</a></li>
+			{% if request.user.username %}
+			<li><a href="{% url 'index' %}"><i class="fa fa-user mr-2"></i> Mi Cuenta</a></li>
+			{% endif %}
+<!-- 			<li><a href="blog.html">Buscar un Producto</a></li>
+ --><!-- 			<li><a href="contact.html">Contacto</a></li>
+ -->		</ul>
+	</header>
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-12">
+				<div class="section-title">
+					<h2>Notas de las últimas actualizaciones</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row mb-5">
+			{% for note in notes %}
+			<div class="col-12">
+				<div class="card mb-3">
+				  <div class="card-header">
+				  	<h4>Actualizacion {{note.date | date:"d-m-Y"}} - {{note.title}}</h4>
+				  </div>
+				  <div class="card-body">
+				  	{{note.note | safe}}
+				  </div>
+				</div>				
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<footer class="footer-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-6 col-lg-7 order-lg-2">
+					<div class="row">
+						<div class="col-sm-4">
+						</div>
+						<div class="col-sm-4">
+						</div>
+						<div class="col-sm-4">
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-6 col-lg-5 order-lg-1">
+					<img style="width: 50%" src="{% static 'landing/img/logo.png' %}" alt="">
+¿				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Footer section end -->
+	
+	<!--====== Javascripts & Jquery ======-->
+	<script src="{% static 'landing/js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'landing/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'landing/js/jquery.slicknav.min.js' %}"></script>
+	<script src="{% static 'landing/js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'landing/js/mixitup.min.js' %}"></script>
+	<script src="{% static 'landing/js/main.js' %}"></script>
+
+	<!-- Audio Player and Initialization -->
+	<script src="{% static 'landing/js/jquery.jplayer.min.js' %}"></script>
+	<script src="{% static 'landing/js/jplayerInit.js' %}"></script>
+
+	</body>
+</html>

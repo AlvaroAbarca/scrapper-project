@@ -1,0 +1,15 @@
+Notas
+
+
+ specifications-title - Especificaciones del producto caracteristicas
+
+ price - li con data-normal-price="379.990"
+
+
+Python 3
+
+
+Librerias 
+
+  - Requests : https://requests.readthedocs.io/en/master/
+  - beautifulsoup4 - https://pypi.org/project/beautifulsoup4/

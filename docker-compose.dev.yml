@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  web:
+    image: scrapper:latest
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    expose:
+      - 8000
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - db
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'bajodeprecio_db'
+      MYSQL_USER: 'bajodeprecio'
+      MYSQL_PASSWORD: 'bajodeprecio1234'
+      MYSQL_ROOT_PASSWORD: '1234'
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./static:/var/www/staticfiles
+    depends_on:
+      - web
+
+  redis:
+    image: redis
+
+  worker:
+    image: scrapper:latest
+    command: celery -A main worker -l INFO
+    volumes:
+      - .:/code
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+  beat:
+    image: scrapper:latest
+    command: celery -A main beat -l INFO
+    volumes:
+      - .:/code
+    env_file:
+      - .env
+    depends_on:
+      - redis

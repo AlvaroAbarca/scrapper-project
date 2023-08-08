@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<ol class="breadcrumb mb-4 mt-4">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Configuración</a></li>
+</ol>
+
+<div id="alert" class="alert alert-success alert-dismissible fade d-none show" role="alert">
+  <strong>Ajustes Guardados!</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="row">
+	<div class="col-12">
+		<h3>Mi Perfil</h3>		
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-6">
+		<div class="form-group">
+			<label for="" class="control-label">Nombre:</label>
+			<input disabled type="text" value="{{request.user.first_name}}" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="" class="control-label">Apellidos:</label>
+			<input disabled type="text" value="{{request.user.last_name}}" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="" class="control-label">E-Mail:</label>
+			<input disabled type="text" value="{{request.user.email}}" class="form-control">
+		</div>
+	</div>
+</div>
+{% csrf_token %}
+<div class="row">
+	<div class="col-6">
+		<div class="form-group">
+			<label for="" class="control-label">Noticicaciones de Ofertas por Email:</label>
+			<select name="notifications" id="notifications" class="form-control">
+				{% if request.user.profile.notifications %}
+				<option selected value="1">Activadas</option>
+				<option value="0">Desactivadas</option>
+				{% else %}
+				<option value="1">Activadas</option>
+				<option selected value="0">Desactivadas</option>
+				{% endif %}
+			</select>			
+		</div>
+		<div class="form-group">
+			<label for="" class="control-label">Noticicación de Actualizaciones por Email:</label>
+			<select name="updates_notifications" id="updates_notifications" class="form-control">
+				{% if request.user.profile.updates_notifications %}
+				<option selected value="1">Activadas</option>
+				<option value="0">Desactivadas</option>
+				{% else %}
+				<option value="1">Activadas</option>
+				<option selected value="0">Desactivadas</option>
+				{% endif %}
+			</select>			
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+
+{% block js %}
+
+<script>
+	
+	$(document).ready(function (){
+
+
+		$("#notifications").on("change", function(){
+			const val = $(this).val();
+			aux = {'notifications': val,
+                	csrfmiddlewaretoken: "{{csrf_token}}",
+
+			}
+			$.post( "{% url 'config_view' %}", aux, function( data ) {
+			  	$("#alert").show();
+			});
+		});
+
+		$("#updates_notifications").on("change", function(){
+			const val = $(this).val();
+			aux = {'updates_notifications': val,
+                	csrfmiddlewaretoken: "{{csrf_token}}",
+
+			}
+			$.post( "{% url 'config_view' %}", aux, function( data ) {
+			  	$("#alert").show();
+			});
+		});
+
+
+	});
+
+
+</script>
+
+
+{% endblock js %}
